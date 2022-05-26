@@ -1,14 +1,14 @@
-{{question.question_text}}   
-<ul>
-{% for option in question.option_set.all %}
-<li>
-{{option.option_text}}
-</li>
-{% endfor %}    
-</ul>
 
-
-<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-<label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label> <br>
-{% endfor %}
-<input type="submit" value="Vote">
+<form action="{% url 'quiz:decision' question.id %}" method="post" >
+    {% csrf_token %}
+    <fieldset> 
+    <legend><h1>{{question.question_text}}</h1></legend> 
+    {% if error_message %} <p> <strong>{{error_message}}</strong> </p> {% endif %}
+    
+    {% for option in question.option_set.all %}
+    <input type="radio" name="option" id="option{{ forloop.counter }}" value="{{ option.id }}">
+    <label for="option{{ forloop.counter }}">{{ option.option_text }}</label> <br>
+    {% endfor %}
+    <input type="submit" value="Submit">
+    </fieldset>
+</form>   
