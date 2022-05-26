@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 app_name='quiz'
-urlpatterns=[path('',views.Question_View.as_view(),name='index')]
+urlpatterns=[path('',views.Question_View.as_view(),name='index'),
+             path('<int:pk>/',views.Option_View.as_view(),name='option')]
 
 
 """

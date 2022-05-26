@@ -12,3 +12,19 @@ class Question_View(generic.ListView):
     template_name='polls/index.html'
     def get_queryset(self):
         return Question.objects.all()
+
+
+class Option_View(generic.DetailView):
+    model=Question
+    template_name='polls/show_options.html'
+
+    def get_queryset(self):
+        return Question.objects.all()
+
+
+class DetailView(generic.DetailView):
+    model=Question
+    template_name='polls/detail.html'
+    
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now())

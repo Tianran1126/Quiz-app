@@ -1,6 +1,13 @@
 from django.contrib import admin 
+from .models import Question ,Option 
 
-from .models import Question ,Option , CorrectOption
+class OptionInline(admin.TabularInline):
+    model=Option
+    extra=3
 
-admin.site.register(Question)
-admin.site.register(Option)
+class QuestionAdmin(admin.ModelAdmin):
+    fieldsets=[(None,{'fields':['question_text']}),('The Correct option',{'fields':['correct_option']})]
+    inlines=[OptionInline]
+
+admin.site.register(Question,QuestionAdmin)    
+

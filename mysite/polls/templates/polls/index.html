@@ -1,7 +1,9 @@
+
 {% if questions %}
 <ul>
 {% for question in questions %}
- <li> {{question}} </li>
+ <li> <a href="{% url 'quiz:option' question.id %}" > {{question}} </a></li>
  {% endfor %}  
 </ul>    
 {% endif %}
+
