@@ -2,10 +2,11 @@ from django.urls import path
 from . import views
 
 app_name='quiz'
-urlpatterns=[path('',views.Question_View.as_view(),name='index'),
+urlpatterns=[path('',views.Set_View.as_view(),name='index'),
              path('startQuiz/',views.optionView,name='option'),
              path('handle/',views.handle,name='handle'),
-             path('result/',views.result,name='result')]
+             path('result/',views.result,name='result'),
+             path('handleSet/',views.handleSet,name='handleSet')]
 
 
 """

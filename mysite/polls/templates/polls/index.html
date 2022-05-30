@@ -1,12 +1,12 @@
+<form action="{% url 'quiz:handleSet' %}" method="post" >
+{% csrf_token %}
+{% for set in sets %}
+<input type="submit"  name="{{set.id}}" value="Set {{set.id}}">
+{% endfor %}
+</form>   
 
-{% if questions %}
-<ul>
-{% for question in questions %}
-{% if question.id == 1 %} 
- <li> <a href="{% url 'quiz:option' %}" > {{question.question_text}} </a></li>
- {% endif %}
- {% endfor %}  
-</ul>    
 
-{% endif %}
+
+
+
 
