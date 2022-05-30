@@ -3,8 +3,8 @@ from . import views
 
 app_name='quiz'
 urlpatterns=[path('',views.Question_View.as_view(),name='index'),
-             path('<int:pk>/',views.Option_View.as_view(),name='option'),
-             path('<int:question_id>/decision/',views.decision,name='decision'),
+             path('startQuiz/',views.optionView,name='option'),
+             path('handle/',views.handle,name='handle'),
              path('result/',views.result,name='result')]
 
 

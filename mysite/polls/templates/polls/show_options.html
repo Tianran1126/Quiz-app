@@ -1,14 +1,39 @@
-
-<form action="{% url 'quiz:decision' question.id %}" method="post" >
+<form action="{% url 'quiz:handle' %}" method="post" >
     {% csrf_token %}
     <fieldset> 
     <legend><h1>{{question.question_text}}</h1></legend> 
-    {% if error_message %} <p> <strong>{{error_message}}</strong> </p> {% endif %}
-    
+    <div align="right " id="displaytimer"></div>
     {% for option in question.option_set.all %}
-    <input type="radio" name="option" id="option{{ forloop.counter }}" value="{{ option.id }}">
+    {% if question.selected_option == option.option_text %}
+    <input type="radio" name="option" id="option{{ forloop.counter }}" value="{{ option.id }}" checked>
+    {% else %}
+    <input type="radio" name="option" id="option{{ forloop.counter }}" value="{{ option.id }}" >
+    {% endif %}
     <label for="option{{ forloop.counter }}">{{ option.option_text }}</label> <br>
     {% endfor %}
-    <input type="submit" value="Submit">
-    </fieldset>
-</form>   
+   <div align="left" > <input type="submit" name="next" value="Next">  
+    {% if question.id > 1 %}
+    <input type="submit"  name="previous" value="Previous">
+    {% endif %}
+ </div>
+   </fieldset>
+</form> 
+
+
+
+{% block script %}
+<script>    
+   var count = parseInt(localStorage.getItem("count-" + window.location.pathname)) || 30
+   var counter = setInterval(timer , 1000)
+function timer(){
+   document.getElementById("displaytimer").innerHTML= count + " secs"
+    count = count-1
+    localStorage.setItem("count-" + window.location.pathname, count)
+    if (count <= 0){  
+        clearInterval(counter);
+        return window.location.href ="http://127.0.0.1:8000/quiz_app/result/"
+    }
+    
+   }
+</script>
+{% endblock script %}
